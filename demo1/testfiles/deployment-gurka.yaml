@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gurka
+  namespace: default
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: gurka
+  template:
+    metadata:
+      labels:
+        app: gurka
+    spec:
+      containers:
+        - name: nginx
+          image: nginx

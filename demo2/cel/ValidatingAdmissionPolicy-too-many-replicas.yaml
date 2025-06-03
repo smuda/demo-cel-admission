@@ -1,0 +1,14 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "hpa-too-many-replicas"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups:   ["autoscaling"]
+        apiVersions: ["v2"]
+        operations:  ["CREATE", "UPDATE"]
+        resources:   ["horizontalpodautoscalers"]
+  validations:
+    - expression: "object.spec.maxReplicas <= 5"
